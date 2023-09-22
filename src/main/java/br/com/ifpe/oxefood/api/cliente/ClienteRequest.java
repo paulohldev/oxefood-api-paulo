@@ -2,8 +2,6 @@ package br.com.ifpe.oxefood.api.cliente;
 
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.ifpe.oxefood.modelo.cliente.Cliente;
@@ -12,31 +10,31 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClienteRequest {
-   private String nome;
-   
-   @JsonFormat(pattern = "dd/MM/yyyy")
-   private LocalDate dataNascimento;
+    private String nome;
 
-   private String cpf;
-   
-   private String foneCelular;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataNascimento;
 
-   private String foneFixo;
+    private String cpf;
 
-   public Cliente build() {
+    private String foneCelular;
 
-    return Cliente.builder()
-            .nome(nome)
-            .dataNascimento(dataNascimento)
-            .cpf(cpf)
-            .foneCelular(foneCelular)
-            .foneFixo(foneFixo)
-            .build();
-   }
+    private String foneFixo;
+
+    public Cliente build() {
+
+        return Cliente.builder()
+                .nome(nome)
+                .dataNascimento(dataNascimento)
+                .cpf(cpf)
+                .foneCelular(foneCelular)
+                .foneFixo(foneFixo)
+                .build();
+    }
+
 }
