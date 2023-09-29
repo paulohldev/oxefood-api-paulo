@@ -8,6 +8,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.ifpe.oxefood.modelo.produto.Produto;
+
 @Service
 public class ProdutoService {
 
@@ -31,5 +33,19 @@ public class ProdutoService {
 
         return repository.findById(id).get();
     }
+    @Transactional
+   public void update(Long id, Produto produtoAlterado) {
+
+      Produto produto = repository.findById(id).get();
+      produto.setCodigo(produtoAlterado.getCodigo());
+      produto.setTitulo(produtoAlterado.getTitulo());
+      produto.setDescricao(produtoAlterado.getDescricao());
+      produto.setValorUnitario(produtoAlterado.getValorUnitario());
+      produto.setTempoEntregaMin(produtoAlterado.getTempoEntregaMin());
+	  produto.setTempoEntregaMax(produtoAlterado.getTempoEntregaMax()); 
+      produto.setVersao(produto.getVersao() + 1);
+      repository.save(produto);
+  }
+
 
 }

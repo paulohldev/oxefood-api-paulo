@@ -26,7 +26,7 @@ public class Produto extends EntidadeAuditavel  {
    @Column
    private String titulo;
    @Column
-   private Integer codigoProduto;
+   private Integer codigo;
    @Column
    private String descricao;
    @Column
