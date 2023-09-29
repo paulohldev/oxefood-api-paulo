@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
-
 @Service
 public class ClienteService {
     @Autowired
@@ -22,8 +21,9 @@ public class ClienteService {
         cliente.setDataCriacao(LocalDate.now());
         return repository.save(cliente);
     }
+
     public List<Cliente> findAll() {
-  
+
         return repository.findAll();
     }
 
@@ -32,5 +32,18 @@ public class ClienteService {
         return repository.findById(id).get();
     }
 
+    @Transactional
+    public void update(Long id, Cliente clienteAlterado) {
+
+        Cliente cliente = repository.findById(id).get();
+        cliente.setNome(clienteAlterado.getNome());
+        cliente.setDataNascimento(clienteAlterado.getDataNascimento());
+        cliente.setCpf(clienteAlterado.getCpf());
+        cliente.setFoneCelular(clienteAlterado.getFoneCelular());
+        cliente.setFoneFixo(clienteAlterado.getFoneFixo());
+
+        cliente.setVersao(cliente.getVersao() + 1);
+        repository.save(cliente);
+    }
 
 }
