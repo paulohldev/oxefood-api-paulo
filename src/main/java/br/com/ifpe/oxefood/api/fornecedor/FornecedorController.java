@@ -43,7 +43,7 @@ public class FornecedorController {
         return fornecedorService.findById(id);
     }
 
-     @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
 
         fornecedorService.delete(id);

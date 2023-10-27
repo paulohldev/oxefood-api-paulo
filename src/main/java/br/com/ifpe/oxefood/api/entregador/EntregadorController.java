@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ifpe.oxefood.modelo.entregador.Entregador;
 import br.com.ifpe.oxefood.modelo.entregador.EntregadorService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/api/entregador")
@@ -26,6 +29,7 @@ public class EntregadorController {
     @Autowired
     private EntregadorService entregadorService;
 
+    @ApiOperation(value = "Serviço responsável por obter um cliente referente ao Id passado na URL.")
     @PostMapping
     public ResponseEntity<Entregador> save(@RequestBody EntregadorRequest request) {
 
@@ -33,24 +37,49 @@ public class EntregadorController {
         return new ResponseEntity<Entregador>(entregador, HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "Serviço responsável por obter um cliente referente ao Id passado na URL.")
     @GetMapping
     public List<Entregador> findAll() {
 
         return entregadorService.findAll();
     }
 
+    @ApiOperation(value = "Serviço responsável por obter um cliente referente ao Id passado na URL.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna o cliente."),
+            @ApiResponse(code = 401, message = "Acesso não autorizado."),
+            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso."),
+            @ApiResponse(code = 404, message = "Não foi encontrado um registro para o Id informado."),
+            @ApiResponse(code = 500, message = "Foi gerado um erro no servidor."),
+    })
     @GetMapping("/{id}")
     public Entregador findById(@PathVariable Long id) {
 
         return entregadorService.findById(id);
     }
 
+    @ApiOperation(value = "Serviço responsável por obter um cliente referente ao Id passado na URL.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna o cliente."),
+            @ApiResponse(code = 401, message = "Acesso não autorizado."),
+            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso."),
+            @ApiResponse(code = 404, message = "Não foi encontrado um registro para o Id informado."),
+            @ApiResponse(code = 500, message = "Foi gerado um erro no servidor."),
+    })
     @PutMapping("/{id}")
     public ResponseEntity<Entregador> update(@PathVariable("id") long id, @RequestBody EntregadorRequest request) {
         entregadorService.update(id, request.build());
         return ResponseEntity.ok().build();
     }
 
+    @ApiOperation(value = "Serviço responsável por obter um cliente referente ao Id passado na URL.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna o cliente."),
+            @ApiResponse(code = 401, message = "Acesso não autorizado."),
+            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso."),
+            @ApiResponse(code = 404, message = "Não foi encontrado um registro para o Id informado."),
+            @ApiResponse(code = 500, message = "Foi gerado um erro no servidor."),
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
 

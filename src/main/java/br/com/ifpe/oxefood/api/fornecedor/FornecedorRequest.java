@@ -1,4 +1,5 @@
 package br.com.ifpe.oxefood.api.fornecedor;
+
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -28,15 +30,15 @@ public class FornecedorRequest {
 
     private String contatoVendedor;
 
-    public Fornecedor build(){
+    public Fornecedor build() {
 
         return Fornecedor.builder()
-            .nome(nome)
-            .endereco(endereco)
-            .dataFundacao(dataFundacao)
-            .valorMercador(valorMercador)
-            .paginaWeb(paginaWeb)
-            .contatoVendedor(contatoVendedor)
-            .build();
+                .nome(nome)
+                .endereco(endereco)
+                .dataFundacao(dataFundacao)
+                .valorMercador(valorMercador)
+                .paginaWeb(paginaWeb)
+                .contatoVendedor(contatoVendedor)
+                .build();
     }
 }
