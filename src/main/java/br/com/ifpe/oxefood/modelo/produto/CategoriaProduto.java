@@ -2,7 +2,6 @@ package br.com.ifpe.oxefood.modelo.produto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Where;
@@ -22,21 +21,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Produto extends EntidadeAuditavel {
 
-   @ManyToOne
-   private CategoriaProduto categoria;
-   @Column
-   private String titulo;
-   @Column
-   private Integer codigo;
-   @Column
-   private String descricao;
-   @Column
-   private Double valorUnitario;
-   @Column
-   private Integer tempoEntregaMin;
-   @Column
-   private Integer tempoEntregaMax;
+public class CategoriaProduto extends EntidadeAuditavel {
+    @Column
+    private String descricao;
 
 }
