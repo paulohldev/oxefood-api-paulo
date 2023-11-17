@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ifpe.oxefood.modelo.produto.CategoriaProdutoService;
@@ -38,6 +39,15 @@ public class ProdutoController {
         Produto produto = produtoService.save(produtoNovo);
         return new ResponseEntity<Produto>(produto, HttpStatus.CREATED);
 
+    }
+
+    @PostMapping("/filtrar")
+    public List<Produto> filtrar(
+            @RequestParam(value = "codigo", required = false) Integer codigo,
+            @RequestParam(value = "titulo", required = false) String titulo,
+            @RequestParam(value = "idCategoria", required = false) Long idCategoria) {
+
+        return produtoService.filtrar(codigo, titulo, idCategoria);
     }
 
     @GetMapping

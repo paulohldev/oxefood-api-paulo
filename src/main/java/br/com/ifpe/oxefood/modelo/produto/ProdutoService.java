@@ -33,6 +33,31 @@ public class ProdutoService {
     return repository.findById(id).get();
   }
 
+  public List<Produto> filtrar(Integer codigo, String titulo, Long idCategoria) {
+
+    List<Produto> listaProdutos = repository.findAll();
+
+    if ((codigo != null && !"".equals(codigo)) &&
+        (titulo == null || "".equals(titulo)) &&
+        (idCategoria == null)) {
+      listaProdutos = repository.consultarPorCodigo(codigo);
+    } else if ((codigo == null || "".equals(codigo)) &&
+        (titulo != null && !"".equals(titulo)) &&
+        (idCategoria == null)) {
+      listaProdutos = repository.findByTituloContainingIgnoreCaseOrderByTituloAsc(titulo);
+    } else if ((codigo == null || "".equals(codigo)) &&
+        (titulo == null || "".equals(titulo)) &&
+        (idCategoria != null)) {
+      listaProdutos = repository.consultarPorCategoria(idCategoria);
+    } else if ((codigo == null || "".equals(codigo)) &&
+        (titulo != null && !"".equals(titulo)) &&
+        (idCategoria != null)) {
+      listaProdutos = repository.consultarPorTituloECategoria(titulo, idCategoria);
+    }
+
+    return listaProdutos;
+  }
+
   @Transactional
   public void update(Long id, Produto produtoAlterado) {
 

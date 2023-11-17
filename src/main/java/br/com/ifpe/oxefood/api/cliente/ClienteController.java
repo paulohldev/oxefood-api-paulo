@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
@@ -36,6 +37,13 @@ public class ClienteController {
 
         Cliente cliente = clienteService.save(request.build());
         return new ResponseEntity<Cliente>(cliente, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/filtrar")
+    public List<Cliente> filtrar(
+            @RequestParam(value = "nome", required = false) String nome,
+            @RequestParam(value = "cpf", required = false) String cpf) {
+        return clienteService.filtrar(nome, cpf);
     }
 
     @ApiOperation(value = "Serviço responsável por listar todos os clientes no sistema.")

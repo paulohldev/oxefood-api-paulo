@@ -13,6 +13,21 @@ public class ClienteService {
     @Autowired
     private ClienteRepository repository;
 
+    public List<Cliente> filtrar(String nome, String cpf){
+        
+        List<Cliente> listaClientes= repository.findAll();
+
+        if ((nome != null && !"".equals(cpf))&&
+        (cpf == null || "".equals(cpf))) {
+            listaClientes = repository.consultaPorNome(nome.trim());
+            
+        }else if((cpf != null && !"".equals(cpf))&&
+        (nome == null || "".equals(nome))) {
+            listaClientes = repository.consultaPorCpf(cpf.trim());
+        }
+        return listaClientes;
+    }
+
     @Transactional
     public Cliente save(Cliente cliente) {
 
@@ -45,15 +60,15 @@ public class ClienteService {
         cliente.setVersao(cliente.getVersao() + 1);
         repository.save(cliente);
     }
+
     @Transactional
-   public void delete(Long id) {
+    public void delete(Long id) {
 
-       Cliente cliente = repository.findById(id).get();
-       cliente.setHabilitado(Boolean.FALSE);
-       cliente.setVersao(cliente.getVersao() + 1);
+        Cliente cliente = repository.findById(id).get();
+        cliente.setHabilitado(Boolean.FALSE);
+        cliente.setVersao(cliente.getVersao() + 1);
 
-       repository.save(cliente);
-   }
-
+        repository.save(cliente);
+    }
 
 }
