@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import br.com.ifpe.oxefood.util.exception.CategoriaProdutoException;
 
 @Service
 public class CategoriaProdutoService {
@@ -15,6 +16,12 @@ public class CategoriaProdutoService {
 
     @Transactional
     public CategoriaProduto save(CategoriaProduto categoriaProduto) {
+        List<CategoriaProduto> categorias = repository.findAll();
+        for (CategoriaProduto categoria : categorias) {
+            if (categoria.getDescricao().equals(categoriaProduto.getDescricao())) {
+                throw new CategoriaProdutoException(CategoriaProdutoException.MSG_NOME_CATEGORIA);
+            }
+        }
 
         categoriaProduto.setHabilitado(Boolean.TRUE);
         categoriaProduto.setVersao(1L);

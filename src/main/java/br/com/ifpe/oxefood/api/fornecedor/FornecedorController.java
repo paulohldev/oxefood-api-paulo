@@ -28,7 +28,7 @@ public class FornecedorController {
     private FornecedorService fornecedorService;
 
     @PostMapping
-    public ResponseEntity<Fornecedor> save(@RequestBody FornecedorRequest request) {
+    public ResponseEntity<Fornecedor> save(@RequestBody @Valid FornecedorRequest request) {
         Fornecedor fornecedor = fornecedorService.save(request.build());
         return new ResponseEntity<Fornecedor>(fornecedor, HttpStatus.CREATED);
     }
