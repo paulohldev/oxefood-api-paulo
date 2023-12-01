@@ -6,23 +6,28 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import br.com.ifpe.oxefood.modelo.acesso.UsuarioService;
+
 import java.util.List;
 
 @Service
 public class ClienteService {
     @Autowired
     private ClienteRepository repository;
+    @Autowired
+    private UsuarioService usuarioService;
 
-    public List<Cliente> filtrar(String nome, String cpf){
-        
-        List<Cliente> listaClientes= repository.findAll();
+    public List<Cliente> filtrar(String nome, String cpf) {
 
-        if ((nome != null && !"".equals(cpf))&&
-        (cpf == null || "".equals(cpf))) {
+        List<Cliente> listaClientes = repository.findAll();
+
+        if ((nome != null && !"".equals(cpf)) &&
+                (cpf == null || "".equals(cpf))) {
             listaClientes = repository.consultaPorNome(nome.trim());
-            
-        }else if((cpf != null && !"".equals(cpf))&&
-        (nome == null || "".equals(nome))) {
+
+        } else if ((cpf != null && !"".equals(cpf)) &&
+                (nome == null || "".equals(nome))) {
             listaClientes = repository.consultaPorCpf(cpf.trim());
         }
         return listaClientes;
@@ -30,6 +35,7 @@ public class ClienteService {
 
     @Transactional
     public Cliente save(Cliente cliente) {
+        usuarioService.save(cliente.getUsuario());
 
         cliente.setHabilitado(Boolean.TRUE);
         cliente.setVersao(1L);
@@ -51,6 +57,7 @@ public class ClienteService {
     public void update(Long id, Cliente clienteAlterado) {
 
         Cliente cliente = repository.findById(id).get();
+        cliente.setEmail(clienteAlterado.getEmail());
         cliente.setNome(clienteAlterado.getNome());
         cliente.setDataNascimento(clienteAlterado.getDataNascimento());
         cliente.setCpf(clienteAlterado.getCpf());
